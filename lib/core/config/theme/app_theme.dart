@@ -44,15 +44,12 @@ class AppTheme {
           fontWeight: FontWeight.w600,
           color: onBackground,
         ),
-        bodyLarge: GoogleFonts.jakartaSans(
-          fontSize: 16,
-          color: onSurface,
-        ),
-        bodyMedium: GoogleFonts.jakartaSans(
+        bodyLarge: GoogleFonts.plusJakartaSans(fontSize: 16, color: onSurface),
+        bodyMedium: GoogleFonts.plusJakartaSans(
           fontSize: 14,
           color: onSurface.withOpacity(0.8),
         ),
-        labelLarge: GoogleFonts.jakartaSans(
+        labelLarge: GoogleFonts.plusJakartaSans(
           fontSize: 14,
           fontWeight: FontWeight.w600,
           color: onPrimary,
@@ -72,7 +69,7 @@ class AppTheme {
         showSelectedLabels: true,
         showUnselectedLabels: false,
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: surfaceColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         elevation: 0,
@@ -82,9 +79,11 @@ class AppTheme {
           backgroundColor: primaryColor,
           foregroundColor: onPrimary,
           elevation: 0,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-          textStyle: GoogleFonts.jakartaSans(
+          textStyle: GoogleFonts.plusJakartaSans(
             fontWeight: FontWeight.bold,
             fontSize: 16,
           ),
@@ -105,7 +104,7 @@ class AppTheme {
           borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(color: primaryColor, width: 2),
         ),
-        hintStyle: GoogleFonts.jakartaSans(color: Colors.grey),
+        hintStyle: GoogleFonts.plusJakartaSans(color: Colors.grey),
         contentPadding: const EdgeInsets.all(16),
       ),
     );
