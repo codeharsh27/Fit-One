@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
-  // Colors
-  static const Color primaryColor = Color(0xFFCCFF00); // Neon Lime
-  static const Color secondaryColor = Color(0xFF00E5FF); // Cyan Accent
-  static const Color backgroundColor = Color(0xFF0A0A0A); // Deep Dark
-  static const Color surfaceColor = Color(0xFF1C1C1E); // Card Surface
-  static const Color errorColor = Color(0xFFFF453A); // Red
-  static const Color onPrimary = Colors.black;
+  // Colors extracted from the image
+  static const Color primaryColor = Color(0xFFFF5500); // Orange
+  static const Color secondaryColor = Color(0xFFFFFFFF);
+  static const Color backgroundColor = Color(0xFF000000); // Pure Black
+  static const Color surfaceColor = Color(0xFF1C1C1E); // Dark Grey Card
+  static const Color errorColor = Color(0xFFFF453A);
+
+  static const Color onPrimary = Colors.white;
   static const Color onBackground = Colors.white;
   static const Color onSurface = Color(0xFFE5E5E5);
+  static const Color greyText = Color(0xFF8E8E93);
 
   static ThemeData get darkTheme {
     return ThemeData(
@@ -18,15 +20,14 @@ class AppTheme {
       brightness: Brightness.dark,
       scaffoldBackgroundColor: backgroundColor,
       primaryColor: primaryColor,
+      dividerColor: Colors.white24,
       colorScheme: const ColorScheme.dark(
         primary: primaryColor,
         secondary: secondaryColor,
         surface: surfaceColor,
-        background: backgroundColor,
         error: errorColor,
         onPrimary: onPrimary,
         onSurface: onSurface,
-        onBackground: onBackground,
       ),
       textTheme: TextTheme(
         displayLarge: GoogleFonts.outfit(
@@ -35,7 +36,8 @@ class AppTheme {
           color: onBackground,
         ),
         displayMedium: GoogleFonts.outfit(
-          fontSize: 28,
+          // For digital numbers
+          fontSize: 48,
           fontWeight: FontWeight.bold,
           color: onBackground,
         ),
@@ -44,11 +46,13 @@ class AppTheme {
           fontWeight: FontWeight.w600,
           color: onBackground,
         ),
-        bodyLarge: GoogleFonts.plusJakartaSans(fontSize: 16, color: onSurface),
-        bodyMedium: GoogleFonts.plusJakartaSans(
-          fontSize: 14,
-          color: onSurface.withOpacity(0.8),
+        headlineMedium: GoogleFonts.outfit(
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+          color: onBackground,
         ),
+        bodyLarge: GoogleFonts.plusJakartaSans(fontSize: 16, color: onSurface),
+        bodyMedium: GoogleFonts.plusJakartaSans(fontSize: 14, color: greyText),
         labelLarge: GoogleFonts.plusJakartaSans(
           fontSize: 14,
           fontWeight: FontWeight.w600,
@@ -62,25 +66,26 @@ class AppTheme {
         iconTheme: IconThemeData(color: onBackground),
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        backgroundColor: surfaceColor,
+        backgroundColor: backgroundColor, // Match black background
         selectedItemColor: primaryColor,
         unselectedItemColor: Colors.grey,
         type: BottomNavigationBarType.fixed,
         showSelectedLabels: true,
-        showUnselectedLabels: false,
+        showUnselectedLabels: true,
+        elevation: 0,
       ),
       cardTheme: CardThemeData(
         color: surfaceColor,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
         elevation: 0,
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: primaryColor,
-          foregroundColor: onPrimary,
+          backgroundColor: surfaceColor, // Default to dark button for toggles
+          foregroundColor: onBackground,
           elevation: 0,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(16),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
           textStyle: GoogleFonts.plusJakartaSans(

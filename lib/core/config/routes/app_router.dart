@@ -3,8 +3,23 @@ import 'package:go_router/go_router.dart';
 import 'package:tandurast/features/dashboard/presentation/pages/dashboard_page.dart';
 import 'package:tandurast/features/home/presentation/pages/home_page.dart';
 import 'package:tandurast/features/workout/presentation/pages/workout_page.dart';
-import 'package:tandurast/features/meal/presentation/pages/meal_page.dart';
+import 'package:tandurast/features/workout/presentation/pages/workout_history_page.dart';
+import 'package:tandurast/features/workout/presentation/pages/workout_stats_page.dart';
+import 'package:tandurast/features/workout/presentation/pages/active_workout_page.dart';
+import 'package:tandurast/features/workout/presentation/pages/exercise_selection_page.dart';
+
+import 'package:tandurast/features/workout/presentation/pages/new_routine_page.dart';
+import 'package:tandurast/features/workout/presentation/pages/explore_page.dart';
+import 'package:tandurast/features/workout/presentation/pages/explore_category_page.dart';
+import 'package:tandurast/features/workout/presentation/pages/program_detail_page.dart';
+
 import 'package:tandurast/features/profile/presentation/pages/profile_page.dart';
+import 'package:tandurast/features/profile/presentation/pages/edit_profile_page.dart';
+
+import 'package:tandurast/features/auth/presentation/pages/splash_page.dart';
+import 'package:tandurast/features/auth/presentation/pages/login_page.dart';
+import 'package:tandurast/features/auth/presentation/pages/signup_page.dart';
+import 'package:tandurast/features/onboarding/presentation/pages/onboarding_page.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 final GlobalKey<NavigatorState> _sectionANavigatorKey =
@@ -18,8 +33,15 @@ final GlobalKey<NavigatorState> _sectionDNavigatorKey =
 
 final GoRouter appRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: '/home',
+  initialLocation: '/',
   routes: <RouteBase>[
+    GoRoute(path: '/', builder: (context, state) => const SplashPage()),
+    GoRoute(path: '/login', builder: (context, state) => const LoginPage()),
+    GoRoute(path: '/signup', builder: (context, state) => const SignupPage()),
+    GoRoute(
+      path: '/onboarding',
+      builder: (context, state) => const OnboardingPage(),
+    ),
     StatefulShellRoute.indexedStack(
       builder:
           (
@@ -47,6 +69,37 @@ final GoRouter appRouter = GoRouter(
               path: '/workout',
               builder: (BuildContext context, GoRouterState state) =>
                   const WorkoutPage(),
+              routes: [
+                GoRoute(
+                  path: 'history',
+                  builder: (BuildContext context, GoRouterState state) =>
+                      const WorkoutHistoryPage(),
+                ),
+                GoRoute(
+                  path: 'stats',
+                  builder: (BuildContext context, GoRouterState state) =>
+                      const WorkoutStatsPage(),
+                ),
+                GoRoute(
+                  path: 'active',
+                  parentNavigatorKey:
+                      _rootNavigatorKey, // Full screen mode, hide bottom nav
+                  builder: (BuildContext context, GoRouterState state) =>
+                      const ActiveWorkoutPage(),
+                ),
+                GoRoute(
+                  path: 'exercise-select',
+                  parentNavigatorKey: _rootNavigatorKey, // Full screen mode
+                  builder: (BuildContext context, GoRouterState state) =>
+                      const ExerciseSelectionPage(),
+                ),
+
+                GoRoute(
+                  path: 'new-routine',
+                  parentNavigatorKey: _rootNavigatorKey,
+                  builder: (context, state) => const NewRoutinePage(),
+                ),
+              ],
             ),
           ],
         ),
@@ -54,9 +107,29 @@ final GoRouter appRouter = GoRouter(
           navigatorKey: _sectionCNavigatorKey,
           routes: <RouteBase>[
             GoRoute(
-              path: '/meal',
+              path: '/explore',
               builder: (BuildContext context, GoRouterState state) =>
-                  const MealPage(),
+                  const ExplorePage(),
+              routes: [
+                GoRoute(
+                  path: 'category/:name',
+                  parentNavigatorKey: _rootNavigatorKey,
+                  builder: (context, state) {
+                    return ExploreCategoryPage(
+                      categoryName: state.pathParameters['name']!,
+                    );
+                  },
+                ),
+                GoRoute(
+                  path: 'program/:id',
+                  parentNavigatorKey: _rootNavigatorKey,
+                  builder: (context, state) {
+                    return ProgramDetailPage(
+                      programId: state.pathParameters['id']!,
+                    );
+                  },
+                ),
+              ],
             ),
           ],
         ),
@@ -67,6 +140,13 @@ final GoRouter appRouter = GoRouter(
               path: '/profile',
               builder: (BuildContext context, GoRouterState state) =>
                   const ProfilePage(),
+              routes: [
+                GoRoute(
+                  path: 'edit',
+                  parentNavigatorKey: _rootNavigatorKey,
+                  builder: (context, state) => const EditProfilePage(),
+                ),
+              ],
             ),
           ],
         ),

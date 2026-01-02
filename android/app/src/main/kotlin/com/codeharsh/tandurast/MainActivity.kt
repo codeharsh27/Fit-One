@@ -1,4 +1,4 @@
-package com.example.tandurast
+package com.codeharsh.tandurast
 
 import io.flutter.embedding.android.FlutterActivity
 

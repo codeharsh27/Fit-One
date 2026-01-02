@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 
 class DashboardPage extends StatelessWidget {
@@ -23,45 +24,125 @@ class DashboardPage extends StatelessWidget {
       body: navigationShell,
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
+          color: const Color(0xFF1C1C1E), // Lighter "Surface" dark color
           border: Border(
             top: BorderSide(
-              color: Theme.of(context).dividerColor.withOpacity(0.1),
+              color: Colors.white.withOpacity(0.1), // Subtle separator line
               width: 1,
             ),
           ),
         ),
-        child: NavigationBar(
-          selectedIndex: navigationShell.currentIndex,
-          destinations: const [
-            NavigationDestination(
-              icon: Icon(Icons.home_outlined),
-              selectedIcon: Icon(Icons.home_rounded),
-              label: 'Home',
+        child: Theme(
+          data: Theme.of(context).copyWith(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+          ),
+          child: BottomNavigationBar(
+            currentIndex: navigationShell.currentIndex,
+            onTap: _goBranch,
+            backgroundColor: Colors.transparent,
+            selectedItemColor: const Color(0xFFFF5500),
+            unselectedItemColor: Colors.grey,
+            type: BottomNavigationBarType.fixed,
+            showUnselectedLabels: true,
+            iconSize: 24, // Standard Icon Size
+            selectedLabelStyle: const TextStyle(
+              fontSize: 10, // Reduced font size
+              fontWeight: FontWeight.w600,
+              height: 1.5, // Standard line height
             ),
-            NavigationDestination(
-              icon: Icon(Icons.fitness_center_outlined),
-              selectedIcon: Icon(Icons.fitness_center_rounded),
-              label: 'Workout',
+            unselectedLabelStyle: const TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+              height: 1.5,
             ),
-            NavigationDestination(
-              icon: Icon(Icons.restaurant_menu_outlined),
-              selectedIcon: Icon(Icons.restaurant_menu_rounded),
-              label: 'Meal',
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.person_outline),
-              selectedIcon: Icon(Icons.person_rounded),
-              label: 'Profile',
-            ),
-          ],
-          onDestinationSelected: _goBranch,
-          // You can customize the NavigationBar theme in app_theme.dart directly for cleaner code
-          height: 65,
-          backgroundColor: Theme.of(
-            context,
-          ).bottomNavigationBarTheme.backgroundColor,
-          indicatorColor: Theme.of(context).primaryColor.withOpacity(0.2),
-          surfaceTintColor: Colors.transparent,
+            elevation: 0,
+            items: [
+              BottomNavigationBarItem(
+                icon: const Icon(Icons.dashboard_outlined),
+                activeIcon: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      width: 12, // Smaller indicator
+                      height: 2,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFFF5500),
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                    ),
+                    const SizedBox(height: 4), // Tighter spacing
+                    const Icon(Icons.dashboard),
+                  ],
+                ),
+                label: 'Dashboard',
+              ),
+              BottomNavigationBarItem(
+                // Removed extra padding for compact size
+                icon: Transform.rotate(
+                  angle: -0.785,
+                  child: const Icon(Icons.fitness_center_outlined),
+                ),
+                activeIcon: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      width: 12,
+                      height: 2,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFFF5500),
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Transform.rotate(
+                      angle: -0.785,
+                      child: const Icon(Icons.fitness_center),
+                    ),
+                  ],
+                ),
+                label: 'Workout',
+              ),
+              BottomNavigationBarItem(
+                icon: const Icon(Icons.explore_outlined),
+                activeIcon: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      width: 12,
+                      height: 2,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFFF5500),
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    const Icon(Icons.explore),
+                  ],
+                ),
+                label: 'Explore',
+              ),
+              BottomNavigationBarItem(
+                icon: const Icon(CupertinoIcons.settings),
+                activeIcon: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      width: 12,
+                      height: 2,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFFF5500),
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    const Icon(CupertinoIcons.settings_solid),
+                  ],
+                ),
+                label: 'Settings',
+              ),
+            ],
+          ),
         ),
       ),
     );

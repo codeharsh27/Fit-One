@@ -1,0 +1,25 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Exercise Collection Rules
+    // Security Goal:
+    // 1. READ: Publicly readable (anyone with the app can see exercises).
+    // 2. WRITE: Only Admins can modify exercise data.
+    
+    match /exercises/{exerciseId} {
+      allow read: if true; 
+      
+      // In a real app, you would check request.auth.uid against an admin list.
+      // For now, we disable writes from the client app to prevent vandalism.
+      // You should use the Firebase Console to edit data.
+      allow write: if false; 
+    }
+
+    // Default rule: Deny everything else by default for security.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
